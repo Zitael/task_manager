@@ -8,12 +8,12 @@ import java.time.LocalDate
 data class Task(
     @Id @GeneratedValue
     val id: Long,
-    val title: String,
-    val description: String,
+    val title: String?,
+    val description: String?,
     @Column(name = "due_date")
-    val dueDate: LocalDate,
-    val priority: Int,
+    val dueDate: LocalDate?,
+    val priority: Int?,
     @ManyToOne
     @JoinColumn(name = "assignee_id")
-    val assignee: Employee
+    val assignee: Employee?
 )

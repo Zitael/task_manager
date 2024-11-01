@@ -14,7 +14,7 @@
             <column name="description" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="dueDate" type="varchar(255)">
+            <column name="due_date" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <column name="priority" type="int">

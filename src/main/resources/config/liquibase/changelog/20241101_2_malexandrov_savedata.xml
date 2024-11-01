@@ -10,9 +10,8 @@
         <insert tableName="task">
             <column name="title" value="taskTitle1" />
             <column name="description" value="taskDescription1" />
-            <column name="dueDate" value="2024-11-20" />
+            <column name="due_date" value="2024-11-20" />
             <column name="priority" value="1" />
-            <column name="assignee_id" value="1" />
         </insert>
     </changeSet>
 </databaseChangeLog>

@@ -1,16 +1,18 @@
 package org.task_manager.controller
 
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.task_manager.service.TaskService
 import org.task_manager.tools.LogMethods
 
-@RestController(value = "/task")
+@RestController
+@RequestMapping("task")
 @LogMethods
 class TaskController(
     private val service: TaskService
 ) {
 
-    @GetMapping("/all")
+    @GetMapping("all")
     fun getAll() = service.getAll()
 }

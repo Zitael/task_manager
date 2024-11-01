@@ -10,5 +10,5 @@ import jakarta.persistence.Table
 data class Employee(
     @Id @GeneratedValue
     val id: Long,
-    val name: String
+    val name: String?
 )
