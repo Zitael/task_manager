@@ -21,11 +21,11 @@ class LoggingAspect {
         val args = joinPoint.args
         val parameters = args.contentToString()
 
-        logger.info("Called: $methodName with params: $parameters")
+        logger.debug("Called: $methodName with params: $parameters")
 
         val result = joinPoint.proceed()
 
-        logger.info("Result: $result")
+        logger.debug("Result: {}", result)
         return result
     }
 }

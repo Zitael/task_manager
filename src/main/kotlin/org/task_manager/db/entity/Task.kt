@@ -15,5 +15,7 @@ data class Task(
     val priority: Int?,
     @ManyToOne
     @JoinColumn(name = "assignee_id")
-    val assignee: Employee?
+    val assignee: Employee?,
+    @Enumerated(EnumType.STRING)
+    val status: TaskStatus
 )

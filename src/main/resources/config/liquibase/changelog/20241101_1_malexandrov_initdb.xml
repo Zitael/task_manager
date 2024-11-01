@@ -23,6 +23,9 @@
             <column name="assignee_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
         </createTable>
         <addAutoIncrement columnDataType="bigint"
                           columnName="id"
