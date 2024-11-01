@@ -1,0 +1,18 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+>
+    <changeSet id="20241101-2" author="malexandrov">
+        <insert tableName="employee">
+            <column name="name" value="employee1" />
+        </insert>
+        <insert tableName="task">
+            <column name="title" value="taskTitle1" />
+            <column name="description" value="taskDescription1" />
+            <column name="dueDate" value="2024-11-20" />
+            <column name="priority" value="1" />
+            <column name="assignee_id" value="1" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

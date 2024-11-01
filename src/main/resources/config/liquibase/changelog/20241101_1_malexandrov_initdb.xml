@@ -1,0 +1,47 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="20241101-1" author="malexandrov">
+        <createTable tableName="task">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="dueDate" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="priority" type="int">
+                <constraints nullable="true" />
+            </column>
+            <column name="assignee_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+        <addAutoIncrement columnDataType="bigint"
+                          columnName="id"
+                          tableName="task"
+                          schemaName="public"
+                          incrementBy="1" startWith="1"/>
+        <createTable tableName="employee">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+        <addAutoIncrement columnDataType="bigint"
+                          columnName="id"
+                          tableName="employee"
+                          schemaName="public"
+                          incrementBy="1" startWith="1"/>
+        <addForeignKeyConstraint baseColumnNames="assignee_id" baseTableName="task" constraintName="fk_task_employee" referencedColumnNames="id" referencedTableName="employee" />
+    </changeSet>
+</databaseChangeLog>
