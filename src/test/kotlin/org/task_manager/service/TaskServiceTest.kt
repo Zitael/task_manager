@@ -4,14 +4,12 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.runs
 import io.mockk.verify
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.task_manager.controller.request.AssignTaskRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
-import org.task_manager.db.entity.Employee
 import org.task_manager.db.entity.Task
 import org.task_manager.db.repository.TaskRepository
 import org.task_manager.service.dto.EmployeeDto

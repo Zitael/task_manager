@@ -1,7 +1,6 @@
 package org.task_manager.service.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import jakarta.persistence.Column
 import org.task_manager.db.entity.Employee
 import java.time.LocalDate
 import java.time.LocalDateTime
