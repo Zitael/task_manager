@@ -3,7 +3,6 @@ package org.task_manager.service
 import org.springframework.stereotype.Service
 import org.task_manager.controller.request.AssignTaskRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
-import org.task_manager.db.entity.Task
 import org.task_manager.db.repository.TaskRepository
 import org.task_manager.service.dto.TaskDto
 import org.task_manager.service.mapper.TaskMapper

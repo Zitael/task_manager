@@ -4,7 +4,6 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.BeforeEach
@@ -18,7 +17,6 @@ import kotlin.test.assertTrue
 
 class ReportServiceTest {
 
-    private val random = EasyRandom()
     @MockK
     lateinit var service: TaskService
     @InjectMockKs

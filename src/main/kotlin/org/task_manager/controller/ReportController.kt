@@ -12,12 +12,13 @@ import java.time.LocalDateTime
 @RestController
 @RequestMapping("report")
 @LogMethods
+@Suppress("unused")
 class ReportController(
     private val service: ReportService
 ) {
 
-    @GetMapping()
-    fun closedTasks(
+    @GetMapping
+    fun report(
         @RequestParam(name = "dateFrom") dateFrom: LocalDate,
         @RequestParam(name = "dateTo", required = false) dateTo: LocalDateTime = LocalDateTime.now(),
         @RequestParam(name = "employeeName", required = false) employeeName: String? = null
