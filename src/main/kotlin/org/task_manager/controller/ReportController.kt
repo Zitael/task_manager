@@ -22,5 +22,5 @@ class ReportController(
         @RequestParam(name = "dateFrom") dateFrom: LocalDate,
         @RequestParam(name = "dateTo", required = false) dateTo: LocalDateTime = LocalDateTime.now(),
         @RequestParam(name = "employeeName", required = false) employeeName: String? = null
-    ) = service.report(dateFrom, dateTo)
+    ) = service.report(dateFrom, dateTo, employeeName)
 }
