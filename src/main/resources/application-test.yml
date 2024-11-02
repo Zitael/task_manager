@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:task_manager;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+
+    username: user
+    password: password
+  liquibase:
+    enabled: true
+    change-log: classpath:/config/liquibase/changelog-master.xml

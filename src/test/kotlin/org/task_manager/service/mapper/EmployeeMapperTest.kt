@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test
 import org.task_manager.db.entity.Employee
 import org.task_manager.service.dto.EmployeeDto
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class EmployeeMapperTest {
 
@@ -40,7 +41,7 @@ class EmployeeMapperTest {
 
         val entity = mapper.dtoToEntity(dto)
 
-        assertEquals(dto.id, entity.id)
+        assertNull(entity.id)
         assertEquals(dto.name, entity.name)
     }
 }

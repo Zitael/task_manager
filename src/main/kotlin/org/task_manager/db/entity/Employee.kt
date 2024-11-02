@@ -1,14 +1,12 @@
 package org.task_manager.db.entity
 
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "employee")
+@SequenceGenerator(name = "employee_seq", sequenceName = "task_seq", allocationSize = 1)
 data class Employee(
-    @Id @GeneratedValue
-    val id: Long,
-    val name: String?
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
+    var id: Long? = null,
+    var name: String?
 )

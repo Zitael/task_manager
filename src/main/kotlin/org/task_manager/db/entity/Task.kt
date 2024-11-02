@@ -7,21 +7,22 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "task")
+@SequenceGenerator(name = "task_seq", sequenceName = "task_seq", allocationSize = 1)
 data class Task(
-    @Id @GeneratedValue
-    val id: Long,
-    val title: String?,
-    val description: String?,
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
+    var id: Long? = null,
+    var title: String? = null,
+    var description: String? = null,
     @Column(name = "due_date")
-    val dueDate: LocalDate?,
-    val priority: Int?,
+    var dueDate: LocalDate? = null,
+    var priority: Int? = null,
     @ManyToOne
     @JoinColumn(name = "assignee_id")
-    val assignee: Employee?,
+    var assignee: Employee? = null,
     @Enumerated(EnumType.STRING)
-    val status: TaskStatus,
+    var status: TaskStatus,
     @Column(name = "created_at")
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at")
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
 )

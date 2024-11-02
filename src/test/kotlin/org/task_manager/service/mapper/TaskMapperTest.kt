@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.task_manager.db.entity.Task
 import org.task_manager.service.dto.TaskDto
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class TaskMapperTest {
 
@@ -55,7 +57,7 @@ class TaskMapperTest {
 
         val entity = mapper.dtoToEntity(dto)
 
-        assertEquals(dto.id, entity.id)
+        assertNull(entity.id)
         assertEquals(dto.title, entity.title)
         assertEquals(dto.description, entity.description)
         assertEquals(dto.dueDate, entity.dueDate)

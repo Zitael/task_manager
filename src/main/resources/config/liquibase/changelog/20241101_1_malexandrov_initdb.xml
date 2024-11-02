@@ -4,8 +4,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="20241101-1" author="malexandrov">
+        <createSequence sequenceName="task_seq" startValue="1" incrementBy="1"/>
         <createTable tableName="task">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="title" type="varchar(255)">
@@ -33,25 +34,16 @@
                 <constraints nullable="false" />
             </column>
         </createTable>
-        <addAutoIncrement columnDataType="bigint"
-                          columnName="id"
-                          tableName="task"
-                          schemaName="public"
-                          incrementBy="1" startWith="1"/>
 
+        <createSequence sequenceName="employee_seq" startValue="1" />
         <createTable tableName="employee">
-            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" unique="true" />
             </column>
         </createTable>
-        <addAutoIncrement columnDataType="bigint"
-                          columnName="id"
-                          tableName="employee"
-                          schemaName="public"
-                          incrementBy="1" startWith="1"/>
         <addForeignKeyConstraint
                 baseColumnNames="assignee_id"
                 baseTableName="task"

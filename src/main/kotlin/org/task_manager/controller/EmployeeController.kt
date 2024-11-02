@@ -19,5 +19,5 @@ class EmployeeController(
     fun save(@RequestBody task: EmployeeDto) = service.save(task)
 
     @GetMapping("find-by-name")
-    fun findByName(@PathVariable(name = "name") name: String) = service.findByName(name)
+    fun findByName(@RequestParam(name = "name") name: String) = service.findByName(name)
 }

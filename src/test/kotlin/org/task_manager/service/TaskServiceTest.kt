@@ -79,6 +79,6 @@ class TaskServiceTest {
 
         subj.assign(request)
 
-        verify { repository.assign(request.taskId, employee.id) }
+        verify { repository.assign(request.taskId, employee.id!!) }
     }
 }

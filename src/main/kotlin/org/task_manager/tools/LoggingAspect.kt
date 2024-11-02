@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 @Component
 class LoggingAspect {
     @Around("within(@LogMethods *)")
-    fun logMethod(joinPoint: ProceedingJoinPoint): Any {
+    fun logMethod(joinPoint: ProceedingJoinPoint): Any? {
         val targetClass: Class<*> = joinPoint.target.javaClass
         val logger = LoggerFactory.getLogger(targetClass)
 

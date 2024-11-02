@@ -24,7 +24,7 @@ interface TaskRepository: JpaRepository<Task, Long> {
     )
 
     @Modifying
-    @Query("UPDATE Task t SET t.assignee = :assignee_id WHERE t.id = :task_id")
+    @Query(value = "UPDATE task SET assignee_id = :assignee_id WHERE id = :task_id", nativeQuery = true)
     fun assign(
         @Param("task_id") taskId: Long,
         @Param("assignee_id") assigneeId: Long
