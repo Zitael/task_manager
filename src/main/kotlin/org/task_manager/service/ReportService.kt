@@ -5,6 +5,7 @@ import org.task_manager.service.dto.ReportDto
 import org.task_manager.service.dto.ReportTasks
 import org.task_manager.service.dto.TaskDto
 import org.task_manager.service.dto.TaskStatus
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -22,15 +23,22 @@ class ReportService(
         val tasksByStatuses = getTasksByStatuses(tasks)
         val tasksByEmployee = getTasksByEmployee(tasks)
         val tasksMissedDueDate = getTasksMissedDueDate(tasks)
+        val tasksDone = tasksByStatuses[TaskStatus.DONE]
         return ReportDto(
             tasksCreated = tasks.size,
-            tasksCompleted = tasksByStatuses[TaskStatus.DONE]?.count ?: 0,
+            tasksCompleted = tasksDone?.count ?: 0,
+            averageTaskDurationDays = computeAverageTime(tasksDone?.tasks),
             tasksMissedDueDate = tasksMissedDueDate,
             tasksByStatuses = tasksByStatuses,
             tasksByEmployee = tasksByEmployee,
             tasks = tasks
         )
     }
+
+    private fun computeAverageTime(tasks: List<TaskDto>?) = tasks
+        ?.map { task -> Duration.between(task.createdAt, task.updatedAt).toDays() }
+        ?.average()
+        ?.toInt() ?: 0
 
     private fun getTasksMissedDueDate(tasks: List<TaskDto>): ReportTasks {
         val filtered = tasks
@@ -51,6 +59,7 @@ class ReportService(
             ReportTasks(
                 count = tasks.size,
                 completed = tasks.filter { it.status == TaskStatus.DONE }.size,
+                averageTaskDurationDays = computeAverageTime(tasks),
                 tasks = tasks
             )
         }

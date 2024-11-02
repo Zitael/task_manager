@@ -39,6 +39,7 @@ class ReportServiceTest {
         with(result){
             assertEquals(5, this.tasksCreated)
             assertEquals(2, this.tasksCompleted)
+            assertEquals(2, this.averageTaskDurationDays)
             with(tasksMissedDueDate) {
                 assertEquals(3, this.count)
                 assertTrue { this.tasks.map { it.id }.containsAll(listOf(1,2,3)) }
