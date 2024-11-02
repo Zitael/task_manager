@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component
 
 @Aspect
 @Component
+@Suppress("unused")
 class LoggingAspect {
     @Around("within(@LogMethods *)")
     fun logMethod(joinPoint: ProceedingJoinPoint): Any? {
