@@ -15,6 +15,8 @@ import java.time.LocalDateTime
 @Transactional
 interface TaskRepository: JpaRepository<Task, Long> {
 
+    fun findByCreatedAtBetween(startDate: LocalDateTime, endDate: LocalDateTime): List<Task>
+
     @Modifying
     @Query("UPDATE Task t SET t.status = :status, t.updatedAt = :updated_at WHERE t.id = :task_id")
     fun updateStatus(

@@ -1,20 +1,21 @@
 package org.task_manager.service
 
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.task_manager.controller.request.AssignTaskRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
+import org.task_manager.db.entity.Employee
 import org.task_manager.db.entity.Task
 import org.task_manager.db.repository.TaskRepository
 import org.task_manager.service.dto.EmployeeDto
 import org.task_manager.service.dto.TaskDto
 import org.task_manager.service.mapper.TaskMapper
+import java.time.LocalDate
+import java.time.LocalDateTime
 import kotlin.test.assertEquals
 
 class TaskServiceTest {
@@ -78,5 +79,45 @@ class TaskServiceTest {
         subj.assign(request)
 
         verify { repository.assign(request.taskId, employee.id!!) }
+    }
+
+    @Test
+    fun findAllByDates() {
+        val dateFrom = LocalDate.now().minusDays(5)
+        val dateTo = LocalDateTime.now()
+        val tasks = listOf(
+            Task(id = 1)
+        )
+        val dtos = listOf(
+            TaskDto(id = 1)
+        )
+
+        every { repository.findByCreatedAtBetween(dateFrom.atStartOfDay(), dateTo) } returns tasks
+        every { mapper.entityListToDtoList(tasks) } returns dtos
+
+        val result = subj.findAllBy(dateFrom, dateTo)
+
+        assertEquals(1, result.size)
+        assertEquals(1, result[0].id)
+    }
+
+    @Test
+    fun findAllByDatesAndEmployee() {
+        val dateFrom = LocalDate.now().minusDays(5)
+        val employeeName = "testEmployee"
+        val dateTo = LocalDateTime.now()
+        val task1 = Task(id = 1, assignee = Employee(name = random.nextObject(String::class.java)))
+        val task2 = Task(id = 2, assignee = Employee(name = employeeName))
+        val dtos = listOf(
+            TaskDto(id = 2, assignee = Employee(name = employeeName))
+        )
+
+        every { repository.findByCreatedAtBetween(dateFrom.atStartOfDay(), dateTo) } returns listOf(task1,task2)
+        every { mapper.entityListToDtoList(listOf(task2)) } returns dtos
+
+        val result = subj.findAllBy(dateFrom, dateTo, employeeName)
+
+        assertEquals(1, result.size)
+        assertEquals(2, result[0].id)
     }
 }

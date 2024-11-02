@@ -20,7 +20,7 @@ data class Task(
     @JoinColumn(name = "assignee_id")
     var assignee: Employee? = null,
     @Enumerated(EnumType.STRING)
-    var status: TaskStatus,
+    var status: TaskStatus = TaskStatus.CREATED,
     @Column(name = "created_at")
     var createdAt: LocalDateTime = LocalDateTime.now(),
     @Column(name = "updated_at")

@@ -11,8 +11,8 @@ interface TaskMapper {
     fun entityToDto(task: Task): TaskDto
     fun entityListToDtoList(tasks: List<Task>): List<TaskDto>
 
-    @Mapping(target = "createdAt", expression = "java(LocalDateTime.now())")
-    @Mapping(target = "updatedAt", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "createdAt", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "id", ignore = true)
     fun dtoToEntity(dto: TaskDto): Task
 }
