@@ -7,3 +7,6 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:/config/liquibase/changelog-master.xml
+logging:
+  level:
+    org.task_manager: "debug"

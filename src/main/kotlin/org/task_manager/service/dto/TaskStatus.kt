@@ -1,4 +1,4 @@
-package org.task_manager.db.entity
+package org.task_manager.service.dto
 
 enum class TaskStatus {
     CREATED,

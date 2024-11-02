@@ -2,7 +2,6 @@ package org.task_manager.service.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import org.task_manager.db.entity.Employee
-import org.task_manager.db.entity.TaskStatus
 import java.time.LocalDate
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
