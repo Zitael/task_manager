@@ -10,6 +10,7 @@ import org.task_manager.service.exception.EmployeeNotFoundException
 
 
 @ControllerAdvice
+@Suppress("unused")
 class ControllerExceptionHandler {
     @ExceptionHandler(value = [EmployeeNotFoundException::class])
     fun employeeNotFoundException(

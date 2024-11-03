@@ -1,9 +1,6 @@
 package org.task_manager.integration
 
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.hamcrest.Matchers
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.AfterEach
@@ -24,7 +21,6 @@ import org.task_manager.db.entity.Employee
 import org.task_manager.db.entity.Task
 import org.task_manager.db.repository.EmployeeRepository
 import org.task_manager.db.repository.TaskRepository
-import org.task_manager.service.dto.TaskDto
 import org.task_manager.service.dto.TaskStatus
 import kotlin.test.assertEquals
 

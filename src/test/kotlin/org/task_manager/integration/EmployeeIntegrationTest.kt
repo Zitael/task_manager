@@ -15,7 +15,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.task_manager.controller.request.EmployeeSaveRequest
 import org.task_manager.db.entity.Employee
 import org.task_manager.db.repository.EmployeeRepository
-import org.task_manager.service.dto.EmployeeDto
 import kotlin.test.assertEquals
 
 @ActiveProfiles("test")
