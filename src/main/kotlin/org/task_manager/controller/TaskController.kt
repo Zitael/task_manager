@@ -2,6 +2,7 @@ package org.task_manager.controller
 
 import org.springframework.web.bind.annotation.*
 import org.task_manager.controller.request.AssignTaskRequest
+import org.task_manager.controller.request.TaskSaveRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
 import org.task_manager.service.TaskService
 import org.task_manager.service.dto.TaskDto
@@ -18,7 +19,7 @@ class TaskController(
     fun getAll() = service.getAll()
 
     @PostMapping("save")
-    fun save(@RequestBody task: TaskDto) = service.save(task)
+    fun save(@RequestBody request: TaskSaveRequest) = service.save(request)
 
     @PostMapping("update-status")
     fun updateStatus(@RequestBody request: UpdateTaskStatusRequest) = service.updateStatus(request)

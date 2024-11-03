@@ -2,8 +2,8 @@ package org.task_manager.service.mapper
 
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.Test
+import org.task_manager.controller.request.EmployeeSaveRequest
 import org.task_manager.db.entity.Employee
-import org.task_manager.service.dto.EmployeeDto
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
@@ -18,8 +18,8 @@ class EmployeeMapperTest {
 
         val dto = mapper.entityToDto(entity)
 
-        assertEquals(entity.id, dto.id)
-        assertEquals(entity.name, dto.name)
+        assertEquals(entity.id, dto?.id)
+        assertEquals(entity.name, dto?.name)
     }
 
     @Test
@@ -36,12 +36,12 @@ class EmployeeMapperTest {
     }
 
     @Test
-    fun dtoToEntity() {
-        val dto = random.nextObject(EmployeeDto::class.java)
+    fun requestToEntity() {
+        val request = random.nextObject(EmployeeSaveRequest::class.java)
 
-        val entity = mapper.dtoToEntity(dto)
+        val entity = mapper.requestToEntity(request)
 
         assertNull(entity.id)
-        assertEquals(dto.name, entity.name)
+        assertEquals(request.name, entity.name)
     }
 }

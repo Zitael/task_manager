@@ -9,6 +9,7 @@ import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.task_manager.controller.request.EmployeeSaveRequest
 import org.task_manager.service.EmployeeService
 import org.task_manager.service.dto.EmployeeDto
 
@@ -36,7 +37,7 @@ class EmployeeControllerTest {
 
     @Test
     fun save() {
-        val dto = random.nextObject(EmployeeDto::class.java)
+        val dto = random.nextObject(EmployeeSaveRequest::class.java)
 
         subj.save(dto)
 

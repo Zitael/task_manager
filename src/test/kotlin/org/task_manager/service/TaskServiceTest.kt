@@ -6,13 +6,16 @@ import io.mockk.impl.annotations.MockK
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.task_manager.controller.request.AssignTaskRequest
+import org.task_manager.controller.request.TaskSaveRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
 import org.task_manager.db.entity.Employee
 import org.task_manager.db.entity.Task
 import org.task_manager.db.repository.TaskRepository
 import org.task_manager.service.dto.EmployeeDto
 import org.task_manager.service.dto.TaskDto
+import org.task_manager.service.exception.EmployeeNotFoundException
 import org.task_manager.service.mapper.TaskMapper
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -49,12 +52,12 @@ class TaskServiceTest {
     @Test
     fun save() {
         val entity = random.nextObject(Task::class.java)
-        val dto = random.nextObject(TaskDto::class.java)
+        val request = random.nextObject(TaskSaveRequest::class.java)
 
-        every { mapper.dtoToEntity(dto) } returns entity
+        every { mapper.requestToEntity(request) } returns entity
         every { repository.save(entity) } returns entity
 
-        subj.save(dto)
+        subj.save(request)
 
         verify(exactly = 1) { repository.save(entity) }
     }
@@ -79,6 +82,15 @@ class TaskServiceTest {
         subj.assign(request)
 
         verify { repository.assign(request.taskId, employee.id!!) }
+    }
+
+    @Test
+    fun assignWhenEmployeeNotFound() {
+        val request = random.nextObject(AssignTaskRequest::class.java)
+
+        every { employeeService.findByName(request.assigneeName) } returns null
+
+        assertThrows<EmployeeNotFoundException> { subj.assign(request) }
     }
 
     @Test

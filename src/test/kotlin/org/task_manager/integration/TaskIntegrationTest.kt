@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import org.hamcrest.Matchers
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
@@ -15,7 +16,9 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.task_manager.controller.request.AssignTaskRequest
+import org.task_manager.controller.request.TaskSaveRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
 import org.task_manager.db.entity.Employee
 import org.task_manager.db.entity.Task
@@ -28,13 +31,12 @@ import kotlin.test.assertEquals
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class TaskControllerTest {
+class TaskIntegrationTest {
 
     private val random = EasyRandom()
-    private val om = ObjectMapper()
-        .registerModule(JavaTimeModule())
-        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+
+    @Autowired
+    private lateinit var om: ObjectMapper
 
     @Autowired
     @Suppress("unused")
@@ -55,19 +57,17 @@ class TaskControllerTest {
     fun getAll() {
         val employee = employeeRepository.saveAndFlush(Employee(name = "employeeName"))
         val task = taskRepository.saveAndFlush(Task(status = TaskStatus.CREATED, assignee = employee))
-        val expectedResponse = "[${om.writeValueAsString(task)}]"
 
         mockMvc!!.perform(MockMvcRequestBuilders.get("/task/all"))
             .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-            .andExpect(MockMvcResultMatchers.content().string(expectedResponse))
+            .andExpect(jsonPath("$[0].status", Matchers.equalTo(task.status.name)))
+            .andExpect(jsonPath("$[0].assignee.name", Matchers.equalTo(employee.name)))
             .andReturn()
     }
 
     @Test
     fun save() {
-        val employee = employeeRepository.saveAndFlush(random.nextObject(Employee::class.java))
-        val request = random.nextObject(TaskDto::class.java)
-        request.assignee = employee
+        val request = random.nextObject(TaskSaveRequest::class.java)
         mockMvc!!.perform(
             MockMvcRequestBuilders
                 .post("/task/save")
@@ -120,5 +120,20 @@ class TaskControllerTest {
         assertEquals(1, tasks.size)
         assertEquals(task.id, tasks[0].id)
         assertEquals(request.assigneeName, tasks[0].assignee!!.name)
+    }
+
+    @Test
+    fun assignWhenEmployeeNotFound() {
+        val task = taskRepository.saveAndFlush(Task(status = TaskStatus.CREATED))
+        val request = AssignTaskRequest(taskId = task.id!!, assigneeName = random.nextObject(String::class.java))
+        mockMvc!!.perform(
+            MockMvcRequestBuilders
+                .post("/task/assign")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(om.writeValueAsString(request))
+        )
+            .andExpect(MockMvcResultMatchers.status().is4xxClientError())
+            .andExpect(jsonPath("$.message", Matchers.equalTo("Incorrect assignee name")))
+            .andReturn()
     }
 }

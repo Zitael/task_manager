@@ -12,7 +12,6 @@ import java.time.LocalDateTime
 @RestController
 @RequestMapping("report")
 @LogMethods
-@Suppress("unused")
 class ReportController(
     private val service: ReportService
 ) {

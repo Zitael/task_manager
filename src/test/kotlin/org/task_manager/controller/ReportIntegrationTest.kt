@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.test.assertEquals
 
-class ReportControllerTest {
+class ReportIntegrationTest {
     private val random = EasyRandom()
     @MockK(relaxed = true)
     private lateinit var service: ReportService

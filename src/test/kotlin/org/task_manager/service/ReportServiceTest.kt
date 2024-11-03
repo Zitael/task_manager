@@ -58,7 +58,7 @@ class ReportServiceTest {
                 assertEquals(1, this["testEmployee3"]!!.count)
                 assertEquals(1, this["testEmployee4"]!!.count)
                 assertEquals(1, this["testEmployee5"]!!.count)
-                assertEquals(1, this[null]!!.count)
+                assertEquals(1, this["UNASSIGNED"]!!.count)
             }
             assertEquals(tasks, this.tasks)
         }

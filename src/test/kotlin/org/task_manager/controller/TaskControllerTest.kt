@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.task_manager.controller.request.AssignTaskRequest
+import org.task_manager.controller.request.TaskSaveRequest
 import org.task_manager.controller.request.UpdateTaskStatusRequest
 import org.task_manager.service.TaskService
 import org.task_manager.service.dto.TaskDto
@@ -38,7 +39,7 @@ class TaskControllerTest {
 
     @Test
     fun save() {
-        val dto = random.nextObject(TaskDto::class.java)
+        val dto = random.nextObject(TaskSaveRequest::class.java)
 
         subj.save(dto)
 

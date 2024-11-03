@@ -54,7 +54,7 @@ class ReportService(
         it.status == TaskStatus.DONE && it.updatedAt.toLocalDate().isAfter(it.dueDate)
 
     private fun getTasksByEmployee(tasks: List<TaskDto>) = tasks
-        .groupBy { it.assignee?.name }
+        .groupBy { it.assignee?.name ?: "UNASSIGNED" }
         .mapValues { (_, tasks) ->
             ReportTasks(
                 count = tasks.size,

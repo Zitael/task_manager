@@ -1,13 +1,9 @@
 package org.task_manager.integration
 
-import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
-
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -16,6 +12,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
+import org.task_manager.controller.request.EmployeeSaveRequest
 import org.task_manager.db.entity.Employee
 import org.task_manager.db.repository.EmployeeRepository
 import org.task_manager.service.dto.EmployeeDto
@@ -24,16 +21,14 @@ import kotlin.test.assertEquals
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EmployeeControllerTest {
+class EmployeeIntegrationTest {
 
     private val random = EasyRandom()
-    private val om = ObjectMapper()
-        .registerModule(JavaTimeModule())
-        .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
 
     @Autowired
-    @Suppress("unused")
+    private lateinit var om: ObjectMapper
+
+    @Autowired
     private var mockMvc: MockMvc? = null
 
     @Autowired
@@ -69,7 +64,7 @@ class EmployeeControllerTest {
 
     @Test
     fun save() {
-        val request = random.nextObject(EmployeeDto::class.java)
+        val request = random.nextObject(EmployeeSaveRequest::class.java)
         mockMvc!!.perform(
             MockMvcRequestBuilders
                 .post("/employee/save")

@@ -10,5 +10,5 @@ import org.task_manager.db.entity.Employee
 @Transactional
 interface EmployeeRepository: JpaRepository<Employee, Long> {
 
-    fun findByName(name: String): Employee
+    fun findByName(name: String): Employee?
 }

@@ -5,8 +5,8 @@ data class ReportDto(
     var tasksCompleted: Int,
     var averageTaskDurationDays: Int,
     var tasksMissedDueDate: ReportTasks,
-    var tasksByStatuses: Map<TaskStatus?, ReportTasks>,
-    var tasksByEmployee: Map<String?, ReportTasks>,
+    var tasksByStatuses: Map<TaskStatus, ReportTasks>,
+    var tasksByEmployee: Map<String, ReportTasks>,
     var tasks: List<TaskDto> = listOf()
 )
 

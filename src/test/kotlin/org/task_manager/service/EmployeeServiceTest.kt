@@ -9,6 +9,7 @@ import org.jeasy.random.EasyRandom
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.task_manager.controller.request.EmployeeSaveRequest
 import org.task_manager.db.entity.Employee
 import org.task_manager.db.repository.EmployeeRepository
 import org.task_manager.service.dto.EmployeeDto
@@ -57,12 +58,12 @@ class EmployeeServiceTest {
     @Test
     fun save() {
         val entity = random.nextObject(Employee::class.java)
-        val dto = random.nextObject(EmployeeDto::class.java)
+        val request = random.nextObject(EmployeeSaveRequest::class.java)
 
-        every { mapper.dtoToEntity(dto) } returns entity
+        every { mapper.requestToEntity(request) } returns entity
         every { repository.save(entity) } returns entity
 
-        subj.save(dto)
+        subj.save(request)
 
         verify(exactly = 1) { repository.save(entity) }
     }
